@@ -1,5 +1,10 @@
+// Код крайне неоптимизирован, полон костылей и дублирующегося участка кода.
+// При каждом нажатии происходит перебор всей таблицы. Однако в данный момент
+// я не заинтересован в оптимизации. 
+// в будущем обязательно вернусь и реализую более адекватное решение
 
-var set = new Set();
+var currentSubject;
+var theSet = new Set();
 function createButton(text) {
   const buttonElement = document.createElement('button');
   buttonElement.textContent = text;
@@ -17,6 +22,7 @@ function createButton(text) {
 
         const subjectElement = createButton(`${code} ${subject_name}`);
         subjectElement.onclick = function (){
+          currentSubject = code + " " + subject_name;
           clearBlue();
         };
         subjectElement.addEventListener('click', function () {
@@ -47,7 +53,7 @@ function fetchAndDisplayLectures(id, code) {
         var lecturer = lecture.lecturer;
         var time = lecture.time;
         var subject_id = lecture.subject_id;
-        const lectureElement = createButton(`${lecturer} | ${day} | ${time}`);
+        const lectureElement = createButton(`${lecturer} | ${day} | | ${time}:00`);
         lectureElement.addEventListener('click', function () {
           fetchAndDisplayPractices(id, code);
           setLecture(id,time, day, subject_id, duration, code, lecturer);
@@ -80,6 +86,7 @@ function fetchAndDisplayPractices(id, code) {
         practicesList.appendChild(practiceElement);
       });
     });
+    document.getElementById('addButton').style.display = 'none';
 }
 
 function setLecture(id, time, day, subject_id, duration, code, lecturer) {
@@ -93,6 +100,7 @@ function setLecture(id, time, day, subject_id, duration, code, lecturer) {
     time++;
     duration--;
   }
+  document.getElementById('addButton').style.display = 'none';
 }
 
 
@@ -107,6 +115,7 @@ function setPractice(id, time, day, lecture_id, duration, code, practice_teacher
     time++;
     duration--;
   }
+  document.getElementById('addButton').style.display = 'inline-block';
 }
 
 
@@ -140,10 +149,11 @@ function clearByCode(){
 }
 
 
-var theBlue = new Set();
-function addToBasket(code){
-    var intersection = false;
-    
+function addToBasket(){
+  if (currentSubject === null || theSet.has(currentSubject.substring(0,7))){
+    return;
+  }
+  var theBlue = new Set();
   for (let day = 1; day <= 6; day++){
     for (let time = 9; time <= 22; time++){
         var cells = document.getElementById(day + "-" + time).querySelectorAll('div');
@@ -151,8 +161,6 @@ function addToBasket(code){
             continue;
         }
         if (cells.length > 1){
-            console.log("intersection");
-            console.log(cells, "at", day + "-" + time);
             return;
         }
         if (cells[0].style.color === "blue"){
@@ -163,6 +171,36 @@ function addToBasket(code){
   theBlue.forEach(cell =>{
     document.getElementById(cell).querySelector('div').style.color = 'green';
   })
+  var li = document.createElement('li');
+  var deleteButton = document.createElement('button');
+  deleteButton.textContent = "remove";
+  li.textContent = currentSubject;
+  document.getElementById('basket').appendChild(li);
+  li.appendChild(deleteButton);
+  deleteButton.addEventListener("click", function (){
+    removeByCode(deleteButton.parentElement.textContent.substring(0,7));
+    li.remove();
+  });
   theBlue.clear();
-  fetchAndDisplayLectures();
+  fetchAndDisplayPractices();
+  theSet.add(currentSubject.substring(0,7));
+  console.log("set is ", theSet);
+}
+
+
+
+function removeByCode(code){
+  for (let day = 1; day <= 6; day++){
+    for (let time = 9; time <= 22; time++){
+        var td = document.getElementById(day + "-" + time);
+        var divs = td.querySelectorAll('div');
+        divs.forEach(div =>{
+          if (div.textContent.startsWith(code) && div.style.color == "green"){
+            td.removeChild(div);
+          }
+        })
+    }
+  }
+  console.log("removed", code);
+  theSet.delete(code);
 }

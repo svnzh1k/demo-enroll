@@ -12,3 +12,23 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .full-width-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .full-width-list li {
+    width: 100%;
+    background-color: #ccc; /* Just for visibility */
+    padding: 10px;
+    box-sizing: border-box; /* Include padding in the width calculation */
+  }

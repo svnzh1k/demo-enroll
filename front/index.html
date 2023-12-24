@@ -12,24 +12,21 @@
   <h1>Список доступных предметов</h1>
 
   <div id="subjectsList">
-    <!-- Subjects will be displayed here -->
   </div>
 
   <br>
   <br>
-
 
   <div id="lecturesList">
-    <!-- Lectures will be displayed here -->
   </div>
 
+  <br>
+  <br>
 
-  <br>
-  <br>
   <div id="practicesList">
-    <!-- Subjects will be displayed here -->
   </div>
 
+  <br>
   <br>
 
   <div>
@@ -185,10 +182,11 @@
   </div>
 
   <br>
+  <button style="display: none;" id="addButton" onclick="addToBasket()">Add to basket</button>
 
-  <button onclick="addToBasket()">Add to basket</button>
 
-
+  <h3>Добавленные предметы:</h3>
+  <ul id="basket"></ul>
 
   <script src="main.js"></script>
   
