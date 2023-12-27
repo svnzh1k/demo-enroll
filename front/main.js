@@ -1,13 +1,15 @@
 // Код крайне неоптимизирован, полон костылей и дублирующегося участка кода.
 // При каждом нажатии происходит перебор всей таблицы. Однако в данный момент
 // я не заинтересован в оптимизации. 
-// в будущем обязательно вернусь и реализую более адекватное решение
+// В будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
+// fatherOfCEOS кормесын мынаны
 
 var currentSubject;
 var theSet = new Set();
-function createButton(text) {
+function createButton(text, duration) {
   const buttonElement = document.createElement('button');
   buttonElement.textContent = text;
+  buttonElement.style.display = 'block';
   return buttonElement;
 }
 
@@ -26,6 +28,7 @@ function createButton(text) {
           clearBlue();
         };
         subjectElement.addEventListener('click', function () {
+          fetchAndDisplayPractices()
           fetchAndDisplayLectures(id, code);
         });
         subjectsList.appendChild(subjectElement);
@@ -53,7 +56,7 @@ function fetchAndDisplayLectures(id, code) {
         var lecturer = lecture.lecturer;
         var time = lecture.time;
         var subject_id = lecture.subject_id;
-        const lectureElement = createButton(`${lecturer} | ${day} | | ${time}:00`);
+        const lectureElement = createButton(`${lecturer} | ${day} | ${time}:00`, duration);
         lectureElement.addEventListener('click', function () {
           fetchAndDisplayPractices(id, code);
           setLecture(id,time, day, subject_id, duration, code, lecturer);
