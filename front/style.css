@@ -1,34 +1,70 @@
+/* Common styles for both tables */
+
+body{
+  padding-left: 10%;
+  padding-right: 10%;
+}
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
-  
+
 th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
+  border: 1px solid black;
+  padding: 1px;
+  text-align: center;
+  font-size: 16px; /* Adjust the font size as needed */
 }
-  
+
 th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
+}
+
+/* First table style */
+table, .inner-table {
+  width: 100%; /* Set the width to 50% of the screen */
+}
+
+td {
+  width: 100px; /* Set a fixed width for the table cell */
+  border: 1px solid #000; /* Optional: Add a border for better visibility */
+}
+
+/* Second table style */
+div table {
+  table-layout: fixed; /* Prevent cells from automatically adjusting their size based on content */
+}
+
+div table th {
+  background-color: #8ad374cc; /* Adjust the color as needed */
+  color: #fff; /* Set text color for better visibility */
+}
+
+/* Override font size for the last table */
+div table:last-child th,
+div table:last-child td {
+  font-size: 10px; /* Adjust the font size for the last table */
+}
+
+div table tr {
+  height: 40px; /* Set the height for each row */
+}
+
+div table td div {
+  overflow: hidden; /* Hide content that exceeds the div's width */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  text-overflow: ellipsis; /* Show ellipsis (...) for truncated content */
+  font-size: 10px;
+}
+
+
+button {
+  width: 350px; /* Set the width of the button */
+  height: 40px; /* Set the height of the button */
+  font-size: 12px; /* Adjust the font size of the button text */
+  margin: 5px; /* Add margin for spacing between buttons (adjust as needed) */
 }
 
 
 
-body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .full-width-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .full-width-list li {
-    width: 100%;
-    background-color: #ccc; /* Just for visibility */
-    padding: 10px;
-    box-sizing: border-box; /* Include padding in the width calculation */
-  }
+

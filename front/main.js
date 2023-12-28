@@ -2,15 +2,28 @@
 // При каждом нажатии происходит перебор всей таблицы. Однако в данный момент
 // я не заинтересован в оптимизации. 
 // В будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
-// fatherOfCEOS кормесын мынаны
-
+// fatherOfCEOs кормесын мынаны
 var currentSubject;
 var theSet = new Set();
-function createButton(text, duration) {
+function createButton(text) {
   const buttonElement = document.createElement('button');
   buttonElement.textContent = text;
   buttonElement.style.display = 'block';
   return buttonElement;
+}
+
+
+function createRow(lecturer, time, duration){
+
+  const tr = document.createElement('tr');
+  const tdL = document.createElement('td');
+  const tdT = document.createElement('td');
+  const tdD = document.createElement('td');
+  tdL.textContent = lecturer;
+  tdT.textContent = time;
+  tdD.textContent = duration;
+  tr.append(tdL, tdT, tdD);
+  return tr;
 }
 
     fetch('http://localhost:7070/subjects')
@@ -28,6 +41,7 @@ function createButton(text, duration) {
           clearBlue();
         };
         subjectElement.addEventListener('click', function () {
+          subjectElement.style.backgroundColor = 'rgb(150,150,200)';
           fetchAndDisplayPractices()
           fetchAndDisplayLectures(id, code);
         });
@@ -44,11 +58,21 @@ const practicesList = document.getElementById('practicesList');
 
 
 function fetchAndDisplayLectures(id, code) {
+  const trHeader = document.createElement('tr');
+  const trH1 = document.createElement('td');
+  const trH2 = document.createElement('td');
+  const trH3 = document.createElement('td');
+
+  trH1.textContent = 'Teacher';
+  trH2.textContent = 'Start';
+  trH3.textContent = 'Duration';
+  trHeader.append(trH1, trH2, trH3);
+  trHeader.style.backgroundColor = "rgb(255,228,196)";
   fetch(`http://localhost:7070/lectures/${id}`)
     .then(response => response.json())
     .then(lectures => {
       lecturesList.innerHTML = '';
-
+      lecturesList.append(trHeader);
       lectures.forEach(lecture => {
         var id = lecture.id;
         var day = lecture.day;
@@ -56,23 +80,38 @@ function fetchAndDisplayLectures(id, code) {
         var lecturer = lecture.lecturer;
         var time = lecture.time;
         var subject_id = lecture.subject_id;
-        const lectureElement = createButton(`${lecturer} | ${day} | ${time}:00`, duration);
+        const lectureElement = createRow(lecturer, day + ". " + time + ":00", duration);
         lectureElement.addEventListener('click', function () {
+          lecturesList.childNodes.forEach((child, index) =>{
+            if (index != 0){
+              child.style.backgroundColor = 'white';
+            }
+          })
           fetchAndDisplayPractices(id, code);
           setLecture(id,time, day, subject_id, duration, code, lecturer);
+          lectureElement.style.backgroundColor = 'rgb(150,120,200)';
         });
-
         lecturesList.appendChild(lectureElement);
       });
     });
 }
 
 function fetchAndDisplayPractices(id, code) {
+  const trHeader = document.createElement('tr');
+  const trH1 = document.createElement('td');
+  const trH2 = document.createElement('td');
+  const trH3 = document.createElement('td');
+
+  trH1.textContent = 'Teacher';
+  trH2.textContent = 'Start';
+  trH3.textContent = 'Duration';
+  trHeader.append(trH1, trH2, trH3);
+  trHeader.style.backgroundColor = "rgb(255,228,196)";
   fetch(`http://localhost:7070/practices/${id}`)
     .then(response => response.json())
     .then(practices => {
       practicesList.innerHTML = '';
-
+      practicesList.append(trHeader);
       practices.forEach(practice => {
         var id = practice.id;
         var day = practice.day;
@@ -80,9 +119,14 @@ function fetchAndDisplayPractices(id, code) {
         var practice_teacher = practice.practice_teacher;
         var time = practice.time;
         var lecture_id = practice.lecture_id;
-
-        const practiceElement = createButton(`${practice_teacher} | ${day} | ${time}`);
+        const practiceElement = createRow(practice_teacher, day + ". " + time +":00", duration);
         practiceElement.addEventListener('click', function(){
+          practicesList.childNodes.forEach((child, index) =>{
+            if (index != 0){
+              child.style.backgroundColor = 'white';
+            }
+          })
+          practiceElement.style.backgroundColor = 'rgb(150, 120, 200)';
           setPractice(id, time , day, lecture_id, duration, code, practice_teacher);
         });
 
@@ -187,7 +231,11 @@ function addToBasket(){
   theBlue.clear();
   fetchAndDisplayPractices();
   theSet.add(currentSubject.substring(0,7));
-  console.log("set is ", theSet);
+  lecturesList.childNodes.forEach((child, index) =>{
+    if (index != 0){
+      child.style.backgroundColor = 'white';
+    }
+  })
 }
 
 
@@ -204,6 +252,5 @@ function removeByCode(code){
         })
     }
   }
-  console.log("removed", code);
   theSet.delete(code);
 }
