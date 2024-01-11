@@ -14,7 +14,9 @@ import (
 func Initialize() (*sql.DB, error) {
 
 	err := os.Remove("database/db.db")
-	fmt.Println(err, "error removing db.db")
+	if err != nil {
+		fmt.Println(err, "error removing db.db")
+	}
 
 	db, err := sql.Open("sqlite3", "database/db.db")
 	if err != nil {
@@ -73,6 +75,6 @@ func ExecuteScript(script string, db *sql.DB) {
 	if err != nil {
 		fmt.Println()
 		fmt.Println("error", err)
-		fmt.Println()
+		fmt.Println(script)
 	}
 }

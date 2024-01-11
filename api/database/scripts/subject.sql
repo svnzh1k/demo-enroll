@@ -1,5 +1,5 @@
-INSERT INTO subject (code, subject_name) VALUES ('INF 202', 'Database Management Systems 1');
-INSERT INTO subject (code, subject_name) VALUES ('CSS 215', 'Introduction to Algorithms');
-INSERT INTO subject (code, subject_name) VALUES ('INF 201', 'Software Architecture and Design Patterns');
-INSERT INTO subject (code, subject_name) VALUES ('MAT 251', 'Probability and Mathematical Statistics');
-INSERT INTO subject (code, subject_name) VALUES ('MDE 133', 'Turkish Language A2');
+INSERT INTO subject (code, subject_name) VALUES ('INF 203', 'Information Secutity');
+INSERT INTO subject (code, subject_name) VALUES ('INF 207', 'Introduction to IT Bussiness');
+INSERT INTO subject (code, subject_name) VALUES ('INF 313', 'Computer Networks 1');
+INSERT INTO subject (code, subject_name) VALUES ('INF 338', 'Linux Administration 1');
+INSERT INTO subject (code, subject_name) VALUES ('MDE 134', 'Turkish Language 4');

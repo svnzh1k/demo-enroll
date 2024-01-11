@@ -1,7 +1,8 @@
 // Код крайне неоптимизирован, полон костылей и дублирующегося участка кода.
 // При каждом нажатии происходит перебор всей таблицы. Однако в данный момент
-// я не заинтересован в оптимизации. 
-// В будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
+// я жду открытия регистрации для использования API университетского портала так как заполнять
+// базу данных вручную крайне неудобно и сервис доступен лишь мне. 
+// Насчет вложенных циклов - будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
 // fatherOfCEOs кормесын мынаны
 var currentSubject;
 var theSet = new Set();
@@ -41,7 +42,6 @@ function createRow(lecturer, time, duration){
           clearBlue();
         };
         subjectElement.addEventListener('click', function () {
-          subjectElement.style.backgroundColor = 'rgb(150,150,200)';
           fetchAndDisplayPractices()
           fetchAndDisplayLectures(id, code);
         });
@@ -112,26 +112,28 @@ function fetchAndDisplayPractices(id, code) {
     .then(practices => {
       practicesList.innerHTML = '';
       practicesList.append(trHeader);
-      practices.forEach(practice => {
-        var id = practice.id;
-        var day = practice.day;
-        var duration = practice.duration;
-        var practice_teacher = practice.practice_teacher;
-        var time = practice.time;
-        var lecture_id = practice.lecture_id;
-        const practiceElement = createRow(practice_teacher, day + ". " + time +":00", duration);
-        practiceElement.addEventListener('click', function(){
-          practicesList.childNodes.forEach((child, index) =>{
-            if (index != 0){
-              child.style.backgroundColor = 'white';
-            }
-          })
-          practiceElement.style.backgroundColor = 'rgb(150, 120, 200)';
-          setPractice(id, time , day, lecture_id, duration, code, practice_teacher);
+      if (practices !== null){
+        practices.forEach(practice => {
+          var id = practice.id;
+          var day = practice.day;
+          var duration = practice.duration;
+          var practice_teacher = practice.practice_teacher;
+          var time = practice.time;
+          var lecture_id = practice.lecture_id;
+          const practiceElement = createRow(practice_teacher, day + ". " + time +":00", duration);
+          practiceElement.addEventListener('click', function(){
+            practicesList.childNodes.forEach((child, index) =>{
+              if (index != 0){
+                child.style.backgroundColor = 'white';
+              }
+            })
+            practiceElement.style.backgroundColor = 'rgb(150, 120, 200)';
+            setPractice(id, time , day, lecture_id, duration, code, practice_teacher);
+          });
+  
+          practicesList.appendChild(practiceElement);
         });
-
-        practicesList.appendChild(practiceElement);
-      });
+      }
     });
     document.getElementById('addButton').style.display = 'none';
 }

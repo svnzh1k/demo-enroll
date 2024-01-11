@@ -1,69 +1,198 @@
-/* Common styles for both tables */
-
-body{
-  padding-left: 10%;
-  padding-right: 10%;
+body {
+  padding: 1%;
+  font-family: 'Arial', sans-serif;
+  padding-left: 20%;
+  padding-right: 20%;
 }
+
+h1, h3 {
+  text-align: center;
+  color: #333;
+}
+
+/* General styling for tables */
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
 th, td {
-  border: 1px solid black;
-  padding: 1px;
+  border: 1px solid #333;
+  padding: 6px;
   text-align: center;
-  font-size: 16px; /* Adjust the font size as needed */
 }
 
 th {
   background-color: #f2f2f2;
 }
 
-/* First table style */
-table, .inner-table {
-  width: 100%; /* Set the width to 50% of the screen */
+/* Subject buttons and lists */
+#subjectsList button {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 3px;
+  font-size: 12px;
+  text-align: left;
 }
 
-td {
-  width: 100px; /* Set a fixed width for the table cell */
-  border: 1px solid #000; /* Optional: Add a border for better visibility */
+/* Lectures and Practices lists */
+#lecturesList, #practicesList {
+  width: 100%;
 }
 
-/* Second table style */
+#lecturesList th, #practicesList th {
+  background-color: #8ad374cc;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px;
+}
+
+#lecturesList td, #practicesList td {
+  padding: 6px;
+}
+
+/* Weekly schedule table */
 div table {
-  table-layout: fixed; /* Prevent cells from automatically adjusting their size based on content */
+  table-layout: fixed;
+  width: 100%;
 }
 
 div table th {
-  background-color: #8ad374cc; /* Adjust the color as needed */
-  color: #fff; /* Set text color for better visibility */
+  background-color: #8ad374cc;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px;
 }
 
-/* Override font size for the last table */
+div table td {
+  padding: 6px;
+  text-align: center;
+}
+
 div table:last-child th,
 div table:last-child td {
-  font-size: 10px; /* Adjust the font size for the last table */
-}
-
-div table tr {
-  height: 40px; /* Set the height for each row */
-}
-
-div table td div {
-  overflow: hidden; /* Hide content that exceeds the div's width */
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  text-overflow: ellipsis; /* Show ellipsis (...) for truncated content */
   font-size: 10px;
 }
 
-
-button {
-  width: 350px; /* Set the width of the button */
-  height: 40px; /* Set the height of the button */
-  font-size: 12px; /* Adjust the font size of the button text */
-  margin: 5px; /* Add margin for spacing between buttons (adjust as needed) */
+div table tr {
+  height: 30px;
 }
+
+div table td div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 10px;
+}
+
+/* Add to basket button */
+#addButton {
+  display: none;
+  width: 100%;
+  padding: 6px;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+/* Basket list */
+#basket {
+  list-style-type: none;
+  padding: 0;
+}
+
+#basket li {
+  padding: 5px;
+  font-size: 12px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+#basket li button {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #8ad374cc;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 2%;
+  }
+
+  button, #addButton {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
