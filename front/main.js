@@ -1,8 +1,8 @@
 // Код крайне неоптимизирован, полон костылей и дублирующегося участка кода.
 // При каждом нажатии происходит перебор всей таблицы. Однако в данный момент
 // я жду открытия регистрации для использования API университетского портала так как заполнять
-// базу данных вручную крайне неудобно и сервис доступен лишь мне. 
-// Насчет вложенных циклов - будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
+// базу данных вручную крайне неудобно и сервис отображает только те данные которые я туда залил
+// Насчет вложенных циклов - в будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
 // fatherOfCEOs кормесын мынаны
 var currentSubject;
 var theSet = new Set();
@@ -35,7 +35,6 @@ function createRow(lecturer, time, duration){
         var id = subject.id;
         var code = subject.code;
         var subject_name = subject.subject_name;
-
         const subjectElement = createButton(`${code} ${subject_name}`);
         subjectElement.onclick = function (){
           currentSubject = code + " " + subject_name;
@@ -43,7 +42,7 @@ function createRow(lecturer, time, duration){
         };
         subjectElement.addEventListener('click', function () {
           fetchAndDisplayPractices()
-          fetchAndDisplayLectures(id, code);
+          fetchAndDisplayLectures(id, code, subject_name);
         });
         subjectsList.appendChild(subjectElement);
       });
@@ -57,12 +56,15 @@ const practicesList = document.getElementById('practicesList');
 
 
 
-function fetchAndDisplayLectures(id, code) {
+function fetchAndDisplayLectures(id, code, subject_name) {
   const trHeader = document.createElement('tr');
+  const trCode = document.createElement('tr')
   const trH1 = document.createElement('td');
   const trH2 = document.createElement('td');
   const trH3 = document.createElement('td');
 
+  trCode.innerHTML = `<td colspan="3">${code + " " + subject_name}</td>`;
+  trCode.style.backgroundColor = 'rgb(138,211,116)';
   trH1.textContent = 'Teacher';
   trH2.textContent = 'Start';
   trH3.textContent = 'Duration';
@@ -72,7 +74,7 @@ function fetchAndDisplayLectures(id, code) {
     .then(response => response.json())
     .then(lectures => {
       lecturesList.innerHTML = '';
-      lecturesList.append(trHeader);
+      lecturesList.append(trCode, trHeader);
       lectures.forEach(lecture => {
         var id = lecture.id;
         var day = lecture.day;
@@ -83,7 +85,7 @@ function fetchAndDisplayLectures(id, code) {
         const lectureElement = createRow(lecturer, day + ". " + time + ":00", duration);
         lectureElement.addEventListener('click', function () {
           lecturesList.childNodes.forEach((child, index) =>{
-            if (index != 0){
+            if (index >= 2){
               child.style.backgroundColor = 'white';
             }
           })
@@ -200,6 +202,7 @@ function clearByCode(){
 
 function addToBasket(){
   if (currentSubject === null || theSet.has(currentSubject.substring(0,7))){
+    alert("Данный предмет уже есть в корзине");
     return;
   }
   var theBlue = new Set();
@@ -210,6 +213,7 @@ function addToBasket(){
             continue;
         }
         if (cells.length > 1){
+            alert("Уберите пересечение");
             return;
         }
         if (cells[0].style.color === "blue"){
@@ -217,6 +221,7 @@ function addToBasket(){
         }
     }
   }
+
   theBlue.forEach(cell =>{
     document.getElementById(cell).querySelector('div').style.color = 'green';
   })

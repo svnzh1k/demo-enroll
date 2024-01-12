@@ -246,8 +246,17 @@ INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES 
 
 
 
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (3, 14, 1, 'Aierke Myrzabayeva', 23);
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (4, 15, 1, 'Aierke Myrzabayeva', 23);
+
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (5, 13, 1, 'Aierke Myrzabayeva', 24);
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (2, 17, 1, 'Aierke Myrzabayeva', 24);
 
 
+
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (4, 10, 1, 'Sufyan Mustafa', 25);
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (4,  9, 1, 'Sufyan Mustafa', 25);
+INSERT INTO practice (day, time, duration, practice_teacher, lecture_id) VALUES (4, 17, 1, 'Sufyan Mustafa', 25);
 
 
 

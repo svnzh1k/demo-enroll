@@ -31,4 +31,13 @@ INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (1, 12, 2
 
 
 
-INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (1, 1 ,0, 'Turkish Language 4',  5);
+INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (1, 1, 0, 'Turkish Language 4',  5);
+
+
+
+INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (2, 13, 2, 'Maksat Galiyev',  6);
+INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (2, 15, 2, 'Maksat Galiyev',  6);
+
+
+
+INSERT INTO lecture (day, time, duration, lecturer, subject_id) VALUES (2, 15, 2, 'Sufyan Mustafa',  7);
