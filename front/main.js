@@ -4,6 +4,7 @@
 // базу данных вручную крайне неудобно и сервис отображает только те данные которые я туда залил
 // Насчет вложенных циклов - в будущем обязательно вернусь и реализую более оптимальное решение с хэш-таблицами
 // fatherOfCEOs кормесын мынаны
+
 var currentSubject;
 var theSet = new Set();
 function createButton(text) {
@@ -27,7 +28,7 @@ function createRow(lecturer, time, duration){
   return tr;
 }
 
-    fetch('http://localhost:7070/subjects')
+    fetch('https://00abc13bd8b6bc2f8f527d8634fe2844.serveo.net/subjects')
     .then(response => response.json())
     .then(subjects => {
 
@@ -70,7 +71,7 @@ function fetchAndDisplayLectures(id, code, subject_name) {
   trH3.textContent = 'Duration';
   trHeader.append(trH1, trH2, trH3);
   trHeader.style.backgroundColor = "rgb(255,228,196)";
-  fetch(`http://localhost:7070/lectures/${id}`)
+  fetch(`https://00abc13bd8b6bc2f8f527d8634fe2844.serveo.net/lectures/${id}`)
     .then(response => response.json())
     .then(lectures => {
       lecturesList.innerHTML = '';
@@ -109,7 +110,7 @@ function fetchAndDisplayPractices(id, code) {
   trH3.textContent = 'Duration';
   trHeader.append(trH1, trH2, trH3);
   trHeader.style.backgroundColor = "rgb(255,228,196)";
-  fetch(`http://localhost:7070/practices/${id}`)
+  fetch(`https://00abc13bd8b6bc2f8f527d8634fe2844.serveo.net/practices/${id}`)
     .then(response => response.json())
     .then(practices => {
       practicesList.innerHTML = '';
