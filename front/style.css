@@ -131,3 +131,96 @@ div table td div {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Original CSS styles */
+
+/* ... (Your existing styles) ... */
+
+/* Responsive design */
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  h1, h3 {
+    text-align: left;
+  }
+
+  table {
+    font-size: 10px;
+  }
+
+  th, td {
+    padding: 4px;
+  }
+
+  #addButton {
+    display: block;
+  }
+
+  #basket li button {
+    right: 0;
+  }
+
+  div table tr {
+    height: 20px;
+  }
+
+  div table td div {
+    font-size: 8px;
+  }
+
+
+  div table:last-child th, div table:last-child td {
+    font-size: 6px;
+}
+
+div table td div {
+    font-size: 6px;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
